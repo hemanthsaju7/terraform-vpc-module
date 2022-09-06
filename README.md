@@ -4,16 +4,15 @@ A group of standard configuration files in a specific directory make up a Terraf
 
 Here is a simple document on how to use Terraform to build an AWS VPC along with private/public Subnet and Network Gateway's for the VPC. We will be making 1 VPC with 6 Subnets: 3 Private and 3 Public, 1 NAT Gateways, 1 Internet Gateway, and 2 Route Tables
 
-# vim datasource.tf #
-
+#vim datasource.tf
+```
 data "aws_availability_zones" "az" {
   state = "available"
 }
+```
 
-###
-# vim outputs.tf
-###
-
+#vim outputs.tf
+```
 output "myvpc" {
   value = aws_vpc.main.id
 }
@@ -41,11 +40,10 @@ output "private2" {
 output "private3" {
   value = aws_subnet.private3.id
 }
+```
 
-###
-# vim variables.tf
-###
-
+#vim variables.tf
+```
 variable "project_name" {
   default = "example"
 }
@@ -61,19 +59,17 @@ variable "vpc_cidr" {
 variable "region" {
   default = "us-east-2"
 }
+```
 
-###
-# provider.tf
-###
-
+#provider.tf
+```
 provider "aws" {
   region = var.region
 }
+```
 
-###
-# main.tf
-###
-
+#main.tf
+```
 ###
 # Creating VPC #
 ###
@@ -299,3 +295,4 @@ resource "aws_route_table_association" "private3" {
   subnet_id      = aws_subnet.private3.id
   route_table_id = aws_route_table.private.id
 }
+```
